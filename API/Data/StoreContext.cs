@@ -22,7 +22,5 @@ namespace API.Data
         public DbSet<WeightLog> WeightLogs { get; set; }
         public DbSet<WorkoutPlanItems> WorkoutPlanItems { get; set; }
 
-
-    
     }
 }

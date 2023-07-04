@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Data;
+using API.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace API.Services
 {
@@ -20,7 +24,8 @@ namespace API.Services
         }
         public async Task<List<WorkoutPlan>> GetWorkoutPlansWithWorkoutsAsync()
         {
-            return await _context.WorkoutPlans.Include(wp => wp.Workouts).ToListAsync();
+            return await _context.WorkoutPlans.Include(wp => wp.WorkoutPlanItems).ThenInclude(wpi => wpi.Workout).ToListAsync();
+            
         }
 
         public async Task<WorkoutPlan> GetWorkoutPlanByIdAsync(int id)
@@ -30,7 +35,7 @@ namespace API.Services
 
         public async Task<WorkoutPlan> GetWorkoutPlanWithWorkoutsByIdAsync(int id)
         {
-            return await _context.WorkoutPlans.Include(wp => wp.Workouts).FirstOrDefaultAsync(wp => wp.Id == id);
+            return await _context.WorkoutPlans.Include(wp => wp.WorkoutPlanItems).ThenInclude(wpi => wpi.Workout).FirstOrDefaultAsync(wp => wp.Id == id);
         }
 
         public async Task<WorkoutPlan> CreateWorkoutPlanAsync(WorkoutPlan workoutPlan)

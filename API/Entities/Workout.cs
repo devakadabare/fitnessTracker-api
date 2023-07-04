@@ -12,5 +12,8 @@ namespace API.Entities
         public string Description { get; set; }
         public double MET { get; set; }
 
+        public ICollection<WorkoutPlanItems> WorkoutPlanItems { get; set; }
+        public ICollection<UserWorkout> UserWorkout { get; set; }
+
     }
 }

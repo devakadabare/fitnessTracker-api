@@ -1,5 +1,7 @@
 using System.Text;
 using API.Data;
+using API.Entities;
+using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,10 +28,13 @@ namespace API
         {
 
             services.AddControllers();
-            // services.AddScoped<AccountService>();
-            // services.AddScoped<CategoriesService>();
-            // services.AddScoped<TransactionsService>();
-            // services.AddScoped<BudgetService>();
+            services.AddScoped<CheatMealService>();
+            services.AddScoped<WeightLogService>();
+            services.AddScoped<CheatMealService>();
+            services.AddScoped<UserWorkoutEnrollmentService>();
+            services.AddScoped<UserWorkoutService>();
+            services.AddScoped<WorkoutPlanService>();
+            services.AddScoped<WorkoutService>();
             // services.AddScoped<UserService>();
 
             services.AddSwaggerGen(c =>

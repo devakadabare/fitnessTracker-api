@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Data;
+using API.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace API.Services
 {
@@ -14,10 +18,10 @@ namespace API.Services
             _context = context;
         }
 
-        public async Task<List<CheatMeal>> GetCheatMealsByUserIdAsync(int id)
-        {
-            return await _context.CheatMeals.Where(cm => cm.UserId == id).ToListAsync();
-        }
+        // public async Task<List<CheatMeal>> GetCheatMealsByUserIdAsync(int id)
+        // {
+        //     return await _context.CheatMeals.Where(cm => cm.UserId == id).ToListAsync();
+        // }
 
         public async Task<CheatMeal> GetCheatMealByIdAsync(int id)
         {
