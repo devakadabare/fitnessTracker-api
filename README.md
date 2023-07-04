@@ -1,1 +1,0 @@
-# fitnessTracker-api
