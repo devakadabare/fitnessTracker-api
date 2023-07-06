@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTO;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,11 +30,36 @@ namespace API.Services
             return await _context.UserWorkoutEnrollments.FindAsync(id);
         }
 
-        public async Task<UserWorkoutEnrollment> CreateUserWorkoutEnrollmentAsync(UserWorkoutEnrollment userWorkoutEnrollment)
+        public async Task<UserWorkoutEnrollment> CreateUserWorkoutEnrollmentAsync(UserWorkoutEnrollmentCreationDTO userWorkoutEnrollment)
         {
-            object value = _context.UserWorkoutEnrollments.Add(userWorkoutEnrollment);
+            
+            var newUserWorkoutEnrollment = new UserWorkoutEnrollment
+            {
+                UserId = userWorkoutEnrollment.UserId,
+                WorkoutPlanId = userWorkoutEnrollment.WorkoutPlanId,
+                Date = userWorkoutEnrollment.Date,
+                CompletedDays = userWorkoutEnrollment.CompletedDays,
+                StartDate = userWorkoutEnrollment.StartDate,
+                Status = "ACTIVE"
+            };
+
+            object value = _context.UserWorkoutEnrollments.Add(newUserWorkoutEnrollment);
             await _context.SaveChangesAsync();
-            return userWorkoutEnrollment;
+            return newUserWorkoutEnrollment;
+
+        }
+
+        public async Task<UserWorkoutEnrollment> UpdateUserWorkoutEnrollmentAsync(UserWorkoutEnrollmentUpdateDTO userWorkoutEnrollment)
+        {
+            var existingUserWorkoutEnrollment = await _context.UserWorkoutEnrollments.FindAsync(userWorkoutEnrollment.Id);
+
+            // Update the properties of the existing user entity
+            existingUserWorkoutEnrollment.CompletedDays = userWorkoutEnrollment.CompletedDays;
+            existingUserWorkoutEnrollment.Status = userWorkoutEnrollment.Status;
+
+            _context.UserWorkoutEnrollments.Update(existingUserWorkoutEnrollment);
+            await _context.SaveChangesAsync();
+            return existingUserWorkoutEnrollment;
         }
     }
 }
