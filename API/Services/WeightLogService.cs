@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTO;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,11 +28,22 @@ namespace API.Services
             return await _context.WeightLogs.FindAsync(id);
         }
 
-        public async Task<WeightLog> CreateWeightLogAsync(WeightLog weightLog)
+        public async Task<WeightLog> CreateWeightLogAsync(WeightLogCreationDTO weightLog)
         {
-            object value = _context.WeightLogs.Add(weightLog);
+            // object value = _context.WeightLogs.Add(weightLog);
+            // await _context.SaveChangesAsync();
+            // return weightLog;
+
+            var newWeightLog = new WeightLog
+            {
+                UserId = weightLog.UserId,
+                Weight = weightLog.Weight,
+                Date = weightLog.Date
+            };
+
+            object value = _context.WeightLogs.Add(newWeightLog);
             await _context.SaveChangesAsync();
-            return weightLog;
+            return newWeightLog;
         }
 
         public async Task<WeightLog> UpdateWeightLogAsync(WeightLog weightLog)

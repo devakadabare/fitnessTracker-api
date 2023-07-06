@@ -13,13 +13,14 @@ namespace API.Controllers
     public class UserWorkoutEnrollmentController: ControllerBase
     {
         private readonly ILogger<UserWorkoutEnrollmentController> _logger;
-
         private readonly UserWorkoutEnrollmentService _userWorkoutEnrollmentService;
+        private readonly PredictionService _predictionService;
 
-        public UserWorkoutEnrollmentController(UserWorkoutEnrollmentService userWorkoutEnrollmentService, ILogger<UserWorkoutEnrollmentController> logger)
+        public UserWorkoutEnrollmentController(PredictionService predictionService, UserWorkoutEnrollmentService userWorkoutEnrollmentService, ILogger<UserWorkoutEnrollmentController> logger)
         {
             _logger = logger;
             _userWorkoutEnrollmentService = userWorkoutEnrollmentService;
+            _predictionService = predictionService;
         }
 
         [HttpGet("user/{userId}")]
@@ -42,6 +43,10 @@ namespace API.Controllers
         {
             //create a new user workout enrollment
             var result = await _userWorkoutEnrollmentService.CreateUserWorkoutEnrollmentAsync(userWorkoutEnrollment);
+            var userId = userWorkoutEnrollment.UserId;
+
+            //create a new prediction
+            var predictionResult = await _predictionService.CreatePredictionAsync(userId);
             return result; 
             
         }

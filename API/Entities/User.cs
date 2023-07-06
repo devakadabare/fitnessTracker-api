@@ -12,7 +12,7 @@ namespace API.Entities
         public string? Email { get; set; }
         public string? PasswordHash { get; set; }
         public string? Height { get; set; }
-        public string? Weight { get; set; }
+        public double Weight { get; set; }
         public DateOnly DOB { get; set; }
 
         public ICollection<UserWorkout> UserWorkout { get; set; }

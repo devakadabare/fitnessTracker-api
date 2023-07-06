@@ -13,11 +13,13 @@ public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
     private readonly UserService _userService;
+    private readonly WeightLogService _weightLogService;
 
-    public UserController(UserService userService, ILogger<UserController> logger)
+    public UserController(UserService userService, ILogger<UserController> logger, WeightLogService weightLogService)
     {
         _logger = logger;
         _userService = userService;
+        _weightLogService = weightLogService;
     }
 
     [HttpGet(Name = "GetUser")]
@@ -32,8 +34,19 @@ public class UserController : ControllerBase
     public async Task<ActionResult<User>> Post(UserRegistrationDTO user)
     {
         //create a new user
-        var result = await _userService.CreateUserAsync(user);
-        return result; 
+        var userResult = await _userService.CreateUserAsync(user);
+
+        //create a new weight log
+        var weightLogResult = await _weightLogService.CreateWeightLogAsync(
+            new WeightLogCreationDTO
+            {
+                UserId = userResult.Id,
+                Weight = userResult.Weight,
+                Date = DateTime.Now
+            }
+        );
+
+        return userResult;
         
     }
 }
