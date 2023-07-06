@@ -22,14 +22,14 @@ namespace API.Controllers
             _userWorkoutEnrollmentService = userWorkoutEnrollmentService;
         }
 
-        [HttpGet(Name = "GetUserWorkoutEnrollmentsByUserId")]
-        public async Task<List<UserWorkoutEnrollment>> Get(int id)
+        [HttpGet("user/{userId}")]
+        public async Task<List<UserWorkoutEnrollment>> Get(int userId)
         {
             //get all user workout enrollments from the database
-            return await _userWorkoutEnrollmentService.GetUserWorkoutEnrollmentsByUserIdAsync(id);
+            return await _userWorkoutEnrollmentService.GetUserWorkoutEnrollmentsByUserIdAsync(userId);
         }
 
-        [HttpGet(Name = "GetUserWorkoutEnrollmentById")]
+        [HttpGet("single/{id}")]
         public async Task<UserWorkoutEnrollment> GetEnrollmentById(int id)
         {
             //get all user workout enrollments from the database
