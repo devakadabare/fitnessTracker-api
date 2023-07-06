@@ -35,7 +35,7 @@ namespace API
             services.AddScoped<UserWorkoutService>();
             services.AddScoped<WorkoutPlanService>();
             services.AddScoped<WorkoutService>();
-            // services.AddScoped<UserService>();
+            services.AddScoped<UserService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using API.Services;
+using API.DTO;
 
 namespace API.Controllers;
 
@@ -10,10 +12,12 @@ namespace API.Controllers;
 public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
+    private readonly UserService _userService;
 
-    public UserController(ILogger<UserController> logger)
+    public UserController(UserService userService, ILogger<UserController> logger)
     {
         _logger = logger;
+        _userService = userService;
     }
 
     [HttpGet(Name = "GetUser")]
@@ -25,14 +29,11 @@ public class UserController : ControllerBase
 
     //add a new user
     [HttpPost]
-    public IActionResult Post([FromBody] User user)
+    public async Task<ActionResult<User>> Post(UserRegistrationDTO user)
     {
-        if (user == null)
-        {
-            return BadRequest();
-        }
-
-        //add the user to the database
-        return CreatedAtRoute("GetUser", new { id = user.Id }, user);
+        //create a new user
+        var result = await _userService.CreateUserAsync(user);
+        return result; 
+        
     }
 }

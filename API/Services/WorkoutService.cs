@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTO;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,18 +29,35 @@ namespace API.Services
             return await _context.Workouts.FindAsync(id);
         }
 
-        public async Task<Workout> CreateWorkoutAsync(Workout workout)
+        public async Task<Workout> CreateWorkoutAsync(WorkoutCreationDTO workout)
         {
-            _context.Workouts.Add(workout);
+
+            var newWorkout = new Workout
+            {
+                Name = workout.Name,
+                Description = workout.Description,
+                MET = workout.MET
+            };
+
+            _context.Workouts.Add(newWorkout);
             await _context.SaveChangesAsync();
-            return workout;
+
+            return newWorkout;
+
         }
 
-        public async Task<Workout> UpdateWorkoutAsync(Workout workout)
+        public async Task<Workout> UpdateWorkoutAsync(WorkoutUpdateDTO workout)
         {
-            _context.Workouts.Update(workout);
+            var existingWorkout = await _context.Workouts.FindAsync(workout.Id);
+
+            // Update the properties of the existing workout entity
+            existingWorkout.Name = workout.Name;
+            existingWorkout.Description = workout.Description;
+            existingWorkout.MET = workout.MET;
+
+            _context.Workouts.Update(existingWorkout);
             await _context.SaveChangesAsync();
-            return workout;
+            return existingWorkout;
         }
 
         public async Task<Workout> DeleteWorkoutAsync(int id)

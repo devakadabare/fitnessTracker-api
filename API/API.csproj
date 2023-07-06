@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <WarningsAsErrors>CS1591</WarningsAsErrors>
+    <NoWarn>CS8603;CS8604;CS8618;CS0108;CS8600</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

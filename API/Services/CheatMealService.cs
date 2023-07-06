@@ -18,10 +18,6 @@ namespace API.Services
             _context = context;
         }
 
-        // public async Task<List<CheatMeal>> GetCheatMealsByUserIdAsync(int id)
-        // {
-        //     return await _context.CheatMeals.Where(cm => cm.UserId == id).ToListAsync();
-        // }
 
         public async Task<CheatMeal> GetCheatMealByIdAsync(int id)
         {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTO;
 using API.Entities;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -33,19 +34,15 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Workout>> CreateWorkoutAsync(Workout workout)
+        public async Task<ActionResult<Workout>> CreateWorkoutAsync(WorkoutCreationDTO workout)
         {
             return await _workoutService.CreateWorkoutAsync(workout);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Workout>> UpdateWorkoutAsync(int id, Workout workout)
+        [HttpPut]
+        public async Task<ActionResult<Workout>> UpdateWorkoutAsync(WorkoutUpdateDTO workout)
         {
-            if (id != workout.Id)
-            {
-                return BadRequest();
-            }
-
+    
             return await _workoutService.UpdateWorkoutAsync(workout);
         }
 
