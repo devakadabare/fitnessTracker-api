@@ -34,7 +34,7 @@ namespace API.Services
         {
             return await _context.WorkoutPlans.FindAsync(id);
         }
-            public async Task<WorkoutPlanWithItemsDTO> GetWorkoutPlanWithWorkoutsByIdAsync(int id)
+        public async Task<WorkoutPlanWithItemsDTO> GetWorkoutPlanWithWorkoutsByIdAsync(int id)
         {
             var workoutPlan = await _context.WorkoutPlans.Include(wp => wp.WorkoutPlanItems).ThenInclude(wpi => wpi.Workout).FirstOrDefaultAsync(wp => wp.Id == id);
 

@@ -23,10 +23,8 @@ namespace API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddScoped<CheatMealService>();
             services.AddScoped<WeightLogService>();
@@ -36,6 +34,19 @@ namespace API
             services.AddScoped<WorkoutPlanService>();
             services.AddScoped<WorkoutService>();
             services.AddScoped<UserService>();
+            services.AddScoped<PredictionService>();
+
+            // Add CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "MyAllowSpecificOrigins",
+                                  builder =>
+                                  {
+                                      builder.AllowAnyOrigin()
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod();
+                                  });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -50,7 +61,7 @@ namespace API
                     In = ParameterLocation.Header,
                     Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
                 });
-                
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -64,38 +75,39 @@ namespace API
                             },
                             new string[] {}
                     }
-                }); 
+                });
             });
 
             services.AddDbContext<StoreContext>(options => options.UseInMemoryDatabase("TestDb"));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
-            .AddJwtBearer(options =>    
-            {    
-                options.TokenValidationParameters = new TokenValidationParameters    
-                {    
-                    ValidateIssuer = true,    
-                    ValidateAudience = true,    
-                    ValidateLifetime = true,    
-                    ValidateIssuerSigningKey = true,    
-                    ValidIssuer = Configuration["Jwt:Issuer"],    
-                    ValidAudience = Configuration["Jwt:Issuer"],    
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))    
-                };    
-            });    
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
             }
+
+            // Enable CORS
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseHttpsRedirection();
 

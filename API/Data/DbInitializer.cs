@@ -66,10 +66,10 @@ namespace API.Data
             };
 
             var userWorkoutEnrollments = new List<UserWorkoutEnrollment>(){
-                new UserWorkoutEnrollment { Id = 1, UserId = 1, WorkoutPlanId = 1, Days = 30, Status="ACTIVE" },
-                new UserWorkoutEnrollment { Id = 2, UserId = 1, WorkoutPlanId = 2, Days = 30, Status="INACTIVE" },
-                new UserWorkoutEnrollment { Id = 3, UserId = 1, WorkoutPlanId = 3, Days = 30, Status="INACTIVE" },
-                new UserWorkoutEnrollment { Id = 4, UserId = 1, WorkoutPlanId = 4, Days = 30, Status="INACTIVE" },
+                new UserWorkoutEnrollment { Id = 1, UserId = 1, WorkoutPlanId = 1, Days = 30, Status="INACTIVE" },
+                new UserWorkoutEnrollment { Id = 2, UserId = 2, WorkoutPlanId = 2, Days = 30, Status="INACTIVE" },
+                new UserWorkoutEnrollment { Id = 3, UserId = 2, WorkoutPlanId = 3, Days = 30, Status="INACTIVE" },
+                new UserWorkoutEnrollment { Id = 4, UserId = 2, WorkoutPlanId = 4, Days = 30, Status="INACTIVE" },
             };
 
 

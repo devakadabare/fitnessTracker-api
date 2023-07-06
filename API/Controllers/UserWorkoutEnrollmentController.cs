@@ -23,22 +23,22 @@ namespace API.Controllers
             _predictionService = predictionService;
         }
 
-        [HttpGet("user/{userId}")]
+        [HttpGet("api/UserWorkoutEnrollment/user/{userId}")]
         public async Task<List<UserWorkoutEnrollment>> Get(int userId)
         {
             //get all user workout enrollments from the database
             return await _userWorkoutEnrollmentService.GetUserWorkoutEnrollmentsByUserIdAsync(userId);
         }
 
-        [HttpGet("single/{id}")]
-        public async Task<UserWorkoutEnrollment> GetEnrollmentById(int id)
+        [HttpGet("api/UserWorkoutEnrollment/single/{id}")]
+        public async Task<UserWorkoutEnrollmentDataDTO> GetEnrollmentById(int id)
         {
             //get all user workout enrollments from the database
             return await _userWorkoutEnrollmentService.GetUserWorkoutEnrollmentByIdAsync(id);
         }
 
         //add a new user workout enrollment
-        [HttpPost("single")]
+        [HttpPost("api/UserWorkoutEnrollment/single")]
         public async Task<ActionResult<UserWorkoutEnrollment>> Post(UserWorkoutEnrollmentCreationDTO userWorkoutEnrollment)
         {
             //create a new user workout enrollment
@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         //update a user workout enrollment
-        [HttpPut("single")]
+        [HttpPut("api/UserWorkoutEnrollment/single")]
         public async Task<ActionResult<UserWorkoutEnrollment>> Put(UserWorkoutEnrollmentUpdateDTO userWorkoutEnrollment)
         {
             //update a user workout enrollment
@@ -62,7 +62,7 @@ namespace API.Controllers
         }
 
         //complete single day workout
-        [HttpPut("complete/{id}")]
+        [HttpPut("api/UserWorkoutEnrollment/complete/{id}")]
         public async Task<ActionResult<UserWorkoutEnrollment>> CompleteDay(int id)
         {
             //complete a single day workout
