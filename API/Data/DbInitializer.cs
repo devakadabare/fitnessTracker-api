@@ -8,6 +8,13 @@ namespace API.Data
     {
         public static void Initialize(StoreContext context)
         {
+            if(context.Workouts.Any() || context.WorkoutPlans.Any() || context.WorkoutPlanItems.Any() || context.CheatMeals.Any() || context.Users.Any() || context.UserWorkout.Any() || context.UserWorkoutEnrollments.Any() )
+            {
+                return;
+            }
+            
+
+
             var workouts = new List<Workout>(){
                 new Workout { Id = 1, Name = "Workout 1", Description = "This is workout 1", MET = 4.0 },
                 new Workout { Id = 2, Name = "Workout 2", Description = "This is workout 2", MET = 5.0 },
@@ -42,9 +49,9 @@ namespace API.Data
             };
 
             var cheatMeals = new List<CheatMeal>(){
-                new CheatMeal { Id = 1, Name = "Pizza", Description = "This is cheat meal 1", Calories = 1000 },
-                new CheatMeal { Id = 2, Name = "Burger", Description = "This is cheat meal 2", Calories = 2000 },
-                new CheatMeal { Id = 3, Name = "Fried Rice", Description = "This is cheat meal 3", Calories = 3000 },
+                new CheatMeal { Id = 1, Name = "Pizza", Description = "This is cheat meal 1", Calories = 1000, Type = "Fast Food" },
+                new CheatMeal { Id = 2, Name = "Burger", Description = "This is cheat meal 2", Calories = 2000, Type = "Fast Food" },
+                new CheatMeal { Id = 3, Name = "Fried Rice", Description = "This is cheat meal 3", Calories = 3000, Type = "Fast Food" },
             };
 
             var users = new List<User>(){
@@ -59,10 +66,10 @@ namespace API.Data
             };
 
             var userWorkoutEnrollments = new List<UserWorkoutEnrollment>(){
-                new UserWorkoutEnrollment { Id = 1, UserId = 1, WorkoutPlanId = 1, Days = 30 },
-                new UserWorkoutEnrollment { Id = 2, UserId = 1, WorkoutPlanId = 2, Days = 30 },
-                new UserWorkoutEnrollment { Id = 3, UserId = 1, WorkoutPlanId = 3, Days = 30 },
-                new UserWorkoutEnrollment { Id = 4, UserId = 1, WorkoutPlanId = 4, Days = 30 },
+                new UserWorkoutEnrollment { Id = 1, UserId = 1, WorkoutPlanId = 1, Days = 30, Status="ACTIVE" },
+                new UserWorkoutEnrollment { Id = 2, UserId = 1, WorkoutPlanId = 2, Days = 30, Status="INACTIVE" },
+                new UserWorkoutEnrollment { Id = 3, UserId = 1, WorkoutPlanId = 3, Days = 30, Status="INACTIVE" },
+                new UserWorkoutEnrollment { Id = 4, UserId = 1, WorkoutPlanId = 4, Days = 30, Status="INACTIVE" },
             };
 
 

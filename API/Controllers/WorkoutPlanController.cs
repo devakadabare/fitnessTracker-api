@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Entities;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
+using API.DTO;
 
 
 namespace API.Controllers
@@ -28,7 +29,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<WorkoutPlan>> GetWorkoutPlanByIdAsync(int id)
+        public async Task<ActionResult<WorkoutPlanWithItemsDTO>> GetWorkoutPlanByIdAsync(int id)
         {
             return await _workoutPlanService.GetWorkoutPlanWithWorkoutsByIdAsync(id);
         }
