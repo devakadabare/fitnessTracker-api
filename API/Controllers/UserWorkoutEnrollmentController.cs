@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         //add a new user workout enrollment
-        [HttpPost]
+        [HttpPost("single")]
         public async Task<ActionResult<UserWorkoutEnrollment>> Post(UserWorkoutEnrollmentCreationDTO userWorkoutEnrollment)
         {
             //create a new user workout enrollment
@@ -47,7 +47,7 @@ namespace API.Controllers
         }
 
         //update a user workout enrollment
-        [HttpPut]
+        [HttpPut("single")]
         public async Task<ActionResult<UserWorkoutEnrollment>> Put(UserWorkoutEnrollmentUpdateDTO userWorkoutEnrollment)
         {
             //update a user workout enrollment
