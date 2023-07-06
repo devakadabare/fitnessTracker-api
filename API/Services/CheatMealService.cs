@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -46,5 +47,9 @@ namespace API.Services
             return cheatMeal;
         }
 
+        internal Task<ActionResult<List<CheatMeal>>> GetCheatMealsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
