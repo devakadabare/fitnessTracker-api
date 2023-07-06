@@ -30,7 +30,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<WorkoutPlan>> GetWorkoutPlanByIdAsync(int id)
         {
-            return await _workoutPlanService.GetWorkoutPlanByIdAsync(id);
+            return await _workoutPlanService.GetWorkoutPlanWithWorkoutsByIdAsync(id);
         }
 
         [HttpPost]

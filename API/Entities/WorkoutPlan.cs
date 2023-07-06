@@ -10,7 +10,7 @@ namespace API.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Difficulty { get; set; }
-        public double MET { get; set; }
+        public double TotalMET { get; set; }
 
         public ICollection<WorkoutPlanItems> WorkoutPlanItems { get; set; }
         public ICollection<UserWorkoutEnrollment> UserWorkoutEnrollment { get; set; }
