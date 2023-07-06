@@ -61,6 +61,16 @@ namespace API.Controllers
             
         }
 
+        //complete single day workout
+        [HttpPut("complete/{id}")]
+        public async Task<ActionResult<UserWorkoutEnrollment>> CompleteDay(int id)
+        {
+            //complete a single day workout
+            var result = await _userWorkoutEnrollmentService.CompleteDayAsync(id);
+            return result; 
+            
+        }
+
         //delete a user workout enrollment
         // [HttpDelete]
         // public async Task<ActionResult<UserWorkoutEnrollment>> Delete(int id)

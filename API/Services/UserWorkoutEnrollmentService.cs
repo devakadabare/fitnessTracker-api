@@ -49,6 +49,20 @@ namespace API.Services
 
         }
 
+        //complete single day workout
+        public async Task<UserWorkoutEnrollment> CompleteDayAsync(int Id)
+        {
+            var existingUserWorkoutEnrollment = await _context.UserWorkoutEnrollments.FindAsync(Id);
+            
+            // Update the properties of the existing user entity
+            existingUserWorkoutEnrollment.CompletedDays = existingUserWorkoutEnrollment.CompletedDays + 1;
+
+            _context.UserWorkoutEnrollments.Update(existingUserWorkoutEnrollment);
+            await _context.SaveChangesAsync();
+            return existingUserWorkoutEnrollment;
+        }
+
+
         public async Task<UserWorkoutEnrollment> UpdateUserWorkoutEnrollmentAsync(UserWorkoutEnrollmentUpdateDTO userWorkoutEnrollment)
         {
             var existingUserWorkoutEnrollment = await _context.UserWorkoutEnrollments.FindAsync(userWorkoutEnrollment.Id);
