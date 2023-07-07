@@ -35,6 +35,7 @@ namespace API
             services.AddScoped<WorkoutService>();
             services.AddScoped<UserService>();
             services.AddScoped<PredictionService>();
+            services.AddScoped<ReportService>();
 
             // Add CORS
             services.AddCors(options =>
